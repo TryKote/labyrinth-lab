@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1462389933 source:/home/kote/lab_prog/labyrinth/main.cpp
+1462896065 source:/home/kote/lab_prog/labyrinth/main.cpp
 	<iostream>
 	<cstring>
 	<unistd.h>
@@ -7,11 +7,11 @@
 	"labyrinth.h"
 	"human.h"
 
-1462131219 source:/home/kote/lab_prog/labyrinth/src/labyrinth.cpp
+1462896166 source:/home/kote/lab_prog/labyrinth/src/labyrinth.cpp
 	<iostream>
 	"labyrinth.h"
 
-1462131219 /home/kote/lab_prog/labyrinth/include/labyrinth.h
+1462895800 /home/kote/lab_prog/labyrinth/include/labyrinth.h
 
 1461472677 source:/home/kote/lab/labyrinth/main.cpp
 	<iostream>
@@ -25,11 +25,11 @@
 	<iostream>
 	"labyrinth.h"
 
-1462390370 source:/home/kote/lab_prog/labyrinth/src/human.cpp
+1462895764 source:/home/kote/lab_prog/labyrinth/src/human.cpp
 	<iostream>
 	<ncurses.h>
 	"human.h"
 
-1462385846 /home/kote/lab_prog/labyrinth/include/human.h
+1462895385 /home/kote/lab_prog/labyrinth/include/human.h
 	"labyrinth.h"
 

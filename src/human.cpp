@@ -7,21 +7,18 @@ using std::endl;
 
 human::human(char **map, point cellBegin, point cellEnd, point corner) {
     TheMap = map;
-    width = corner.x + 1;
-    height = corner.y + 1;
-    //cout << "HUMAN(begin): " << cellBegin.x << ":" << cellBegin.y << endl;
-    //cout << "HUMAN(end): " << cellEnd.x << ":" << cellEnd.y << endl;
+    width = corner.x + 1; //get width value of the corner
+    height = corner.y + 1; //get height value of the corner
     CellBegin = cellBegin;
     CellEnd = cellEnd;
     TheMap[CellEnd.x][CellEnd.y] = ' ';
 
-    first->direction = 'r'; //needlessly
     first->place = CellBegin;
     first->prev = nullptr;
     current = first;
 }
 
-point human::goAround(point now) {
+point human::goAround(point now) { //returning next cell, where we can to go
     point tempPoint;
     int x = now.x;
     int y = now.y;
@@ -192,22 +189,21 @@ point human::goAround(point now) {
 }
 
 bool human::run() {
-    //cout << "BEFORE human::run() current->place: (" << current->place.x << ":" << current->place.y << ")\n";
     WhereAmI *nextStep = new WhereAmI;
     nextStep->place = goAround(current->place);
     current->footprint++;
     nextStep->prev = current;
     current = nextStep;
-    initscr(); //12
-    if ((current->place.x != -1) || (current->place.y != -1)) { //if -1 nowhere to go
-        //cout << "Go on: (" << current->place.x << ":" << current->place.y << ")\n";
-        mvwprintw(stdscr, 12, 1, "Go on: (%d;%d)", current->place.x,  current->place.y);
+    initscr();
+    curs_set(0);
+    if ((current->place.x != -1) || (current->place.y != -1)) { //if -1 nowhere to go (deadlock)
+        mvwprintw(stdscr, 14, 7, "Go on: (%d;%d)", current->place.x,  current->place.y);
         box(stdscr, '|', '-');
-        curs_set(0);
     } else {
-        return false;
+        return false; //saying, we are on finish-cell
         endwin();
     }
+    return true;
     endwin();
 }
 

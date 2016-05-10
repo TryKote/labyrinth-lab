@@ -33,18 +33,16 @@ using namespace std;
 
 */
 
-int main() //Where is my mind -- Pixies
-{
+int main() {
     char **N = nullptr;
     labyrinth foo; //creating labyrinth
-    N = foo.getLabCopy();
+    N = foo.getLabCopy(); //getting  modify lab (withouth deadlocks)
     char **original = nullptr;
-    original = foo.getLabOriginal();
-    human vasya(N, foo.getPointBegin(), foo.getPointEnd(), foo.genCorner());
-    int maxStepsToGoExitFromLab = 10 * 9; //I can do it with "while"(exit on end-cell), but i don't want.
-    //for (int i = 0; i < maxStepsToGoExitFromLab; i++) vasya.run();
+    original = foo.getLabOriginal(); //getting original map
+    human vasya(N, foo.getPointBegin(), foo.getPointEnd(), foo.genCorner()); //make human
 
     initscr();
+    noecho();
 
     unsigned int maxX, maxY;
     const char* msg = "Labyrinth (press any key)";
@@ -52,17 +50,21 @@ int main() //Where is my mind -- Pixies
     getmaxyx(stdscr, maxY, maxX);
     mvwprintw(stdscr, 1, (maxX-strlen(msg))/2, msg);
     getch();
-    for (int i = 0; i < maxStepsToGoExitFromLab; i++) {
+
+    while(vasya.run()) {
         for (int i = 0; i < foo.getWidth(); i++) //Drowing
             for (int j = 0; j < foo.getHeight(); j++) {
-                mvaddch(j+2, i+2, N[i][j]);
-                mvaddch(j+2, i+15, original[i][j]);
-            }
-        vasya.run();
-        refresh();
-        usleep(STEP_SLEEP*1000);
+                mvaddch(j+3, i+2, N[i][j]); //Drowing modify lab
+                mvaddch(j+3, i+17, original[i][j]); //Drowing original map
+                if ((N[i][j]) == 'S') mvaddch(j+3, i+17, 'S'); //Drowing footseps on orgignal map
+                mvprintw(12, 2, "Modifed map");
+                mvprintw(12, 16, "Original map");
 
+            }
+        refresh();
+        usleep(STEP_SLEEP*1000); //Timeout
     }
+
     box(stdscr, '|', '-');
     curs_set(0);
     getch();
