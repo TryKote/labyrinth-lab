@@ -45,7 +45,6 @@ class labyrinth
     private:
         void fillingDL(char **lab);
         bool isOnCenterDL(char **lab, int x, int y);
-        bool isOnBorderDL(char **lab, int x, int y);
         void mapCreate(bool gen);
         static const int width = 10;
         static const int height = 9;

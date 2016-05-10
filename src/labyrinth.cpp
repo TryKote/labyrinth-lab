@@ -184,19 +184,9 @@ void labyrinth::mapCreate(bool gen) {
 }
 
 bool labyrinth::isOnCenterDL(char **lab, int x, int y) {
-    //cout << "The cell: (" << x << ";" << y << ")==" << cell[x][y] << endl;
-    //cout << "cell(y-1): (" << x << ";" << y-1 << ")==" << cell[x][y-1] << endl;
-    //cout << "cell(x+1): (" << x+1 << ";" << y << ")==" << cell[x+1][y] << endl;
-    //cout << "cell(y+1): (" << x << ";" << y+1 << ")==" << cell[x][y+1] << endl;
-    //cout << "cell(x-1): (" << x-1 << ";" << y << ")==" << cell[x-1][y] << endl;
     if (((((lab[x][y-1]) == 'X') && ((lab[x+1][y]) == 'X') && ((lab[x][y+1]) == 'X')) || (((lab[x-1][y]) == 'X') && ((lab[x+1][y]) == 'X') && ((lab[x][y+1]) == 'X')) || (((lab[x][y-1]) == 'X') && ((lab[x-1][y]) == 'X') && ((lab[x][y+1]) == 'X')) || (((lab[x][y-1]) == 'X') && ((lab[x-1][y]) == 'X') && ((lab[x+1][y]) == 'X'))) && (lab[x][y] != 'X'))
         lab[x][y] = 'X';
     else return 0;
-    return 1;
-}
-
-bool labyrinth::isOnBorderDL(char **lab, int x, int y) {
-    //if ()
     return 1;
 }
 
@@ -206,13 +196,13 @@ void labyrinth::fillingDL(char **lab) {
             for (int j = 1; j < height-1; j++) {
                 if ((i != 0) && (i != 0)) {
                     isOnCenterDL(lab, i, j);
-                    //cout << "Cell[" << i << "][" << j << "]:" << lab[i][j] << endl;
                 }
             }
         }
     //[X][Y]
     //X:
     // FIXME (kote#1#): Replace all specific values (8 and 9) to (width - 1 and height - 1)
+    // FIXED.
     for (int i = 1; i < width; i++) { //X
         //Height 0(left)
         if ((lab[i-1][0] == 'X') && (lab[i][0+1] == 'X')) lab[i][0] = 'X';
@@ -225,12 +215,12 @@ void labyrinth::fillingDL(char **lab) {
 
     for (int i = 1; i < width; i++) { //X
         //Height 8(left)
-        if ((lab[i-1][8] == 'X') && (lab[i][8-1] == 'X')) lab[i][8] = 'X';
+        if ((lab[i-1][width - 1] == 'X') && (lab[i][width - 1-1] == 'X')) lab[i][width - 1] = 'X';
     }
 
     for (int i = 0; i < width-1; i++) { //X
         //Heitht 8(right)
-        if ((lab[i+1][8] == 'X') && (lab[i][8-1] == 'X')) lab[i][8] = 'X';
+        if ((lab[i+1][width - 1] == 'X') && (lab[i][width - 1-1] == 'X')) lab[i][width - 1] = 'X';
     }
 
     //Y:
@@ -246,12 +236,12 @@ void labyrinth::fillingDL(char **lab) {
 
     for (int i = 1; i < height; i++) { //Y
         //Width 9(top)
-        if ((lab[9][i-1] == 'X') && (lab[9-1][i] == 'X')) lab[i][9] = 'X';
+        if ((lab[height - 1][i-1] == 'X') && (lab[height - 1-1][i] == 'X')) lab[i][9] = 'X';
     }
 
     for (int i = 0; i < height-1; i++) { //Y
         //Width 9(bottom)
-        if ((lab[9][i+1] == 'X') && (lab[9-1][i] == 'X')) lab[i][9] = 'X';
+        if ((lab[height - 1][i+1] == 'X') && (lab[9-1][i] == 'X')) lab[i][height - 1] = 'X';
     }
 }
 

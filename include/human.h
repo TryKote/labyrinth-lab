@@ -4,7 +4,6 @@
 
 struct WhereAmI {
     point place;
-    char direction; //r - right; l - left; t - top; b - bottom
     int footprint = 0;
     WhereAmI *prev;
 };
