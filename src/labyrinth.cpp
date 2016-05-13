@@ -194,7 +194,7 @@ void labyrinth::fillingDL(char **lab) {
     for (int limit = 0; limit < width*height; limit++)
         for (int i = 1; i < width-1; i++) {
             for (int j = 1; j < height-1; j++) {
-                if ((i != 0) && (i != 0)) {
+                if ((i != 0) && (j != 0)) {
                     isOnCenterDL(lab, i, j);
                 }
             }
